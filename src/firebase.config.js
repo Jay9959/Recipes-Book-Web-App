@@ -9,7 +9,7 @@ const firebaseConfig = {
   projectId: "reciper-web",
   storageBucket: "reciper-web.firebasestorage.app",
   messagingSenderId: "291890355280",
-  appId: "1:291890355280:web:110a3d40de1434f62c4555"
+  appId: "1:291890355280:web:110a3d40de1434f62c4555" 
 };
 
 const app = initializeApp(firebaseConfig);

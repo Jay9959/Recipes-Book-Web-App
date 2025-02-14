@@ -4,7 +4,7 @@ import { db } from "../firebase.config";
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios'; 
+import axios from 'axios';
 
 const RecipeUploadForm = () => {
   const [title, setTitle] = useState("");
@@ -13,7 +13,7 @@ const RecipeUploadForm = () => {
   const [ingredients, setIngredients] = useState("");
   const [vegetarian, setVegetarian] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [youtubeLink, setYoutubeLink] = useState("https://www.youtube.com/embed/(enter id)"); 
+  const [youtubeLink, setYoutubeLink] = useState();
   const [recipes, setRecipes] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -48,11 +48,11 @@ const RecipeUploadForm = () => {
       setUploading(true);
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "recipe"); 
-      formData.append("cloud_name", "dzh5ynj3i"); 
+      formData.append("upload_preset", "Recipes");
+      formData.append("cloud_name", "dcud5ct93");
 
-      const response = await axios.post('https://api.cloudinary.com/v1_1/dzh5ynj3i/image/upload', formData);
-      const uploadedImageUrl = response.data.secure_url; 
+      const response = await axios.post('https://api.cloudinary.com/v1_1/dcud5ct93/image/upload', formData);
+      const uploadedImageUrl = response.data.secure_url;
       setImageUrl(uploadedImageUrl);
       toast.success("Image uploaded successfully!");
     } catch (error) {
@@ -75,7 +75,7 @@ const RecipeUploadForm = () => {
         ingredients: ingredients.split(",").map((ingredient) => ingredient.trim()),
         imgUrl: imageUrl,
         vegetarian,
-        youtubeLink, 
+        youtubeLink,
       };
 
       if (isEditing) {
@@ -106,7 +106,7 @@ const RecipeUploadForm = () => {
     setIngredients(recipe.ingredients.join(", "));
     setImageUrl(recipe.imgUrl);
     setVegetarian(recipe.vegetarian);
-    setYoutubeLink(recipe.youtubeLink); 
+    setYoutubeLink(recipe.youtubeLink);
     window.scrollTo(0, 0);
   };
 
@@ -138,7 +138,7 @@ const RecipeUploadForm = () => {
     setIngredients("");
     setImageUrl("");
     setVegetarian(false);
-    setYoutubeLink("https://www.youtube.com/embed/(enter id)"); 
+    setYoutubeLink("https://www.youtube.com/embed/(enter id)");
     setCurrentRecipeId("");
   };
 
