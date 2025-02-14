@@ -40,14 +40,6 @@ const Fav = () => {
             <div style={{textAlign:"center", marginBottom:"20px"}}> <h1>Favourites</h1></div>
               {favItems.length === 0 ? (
                 <div className="justify favbox">
-                  <h2 className="fs-4 text-center">
-                    Nothing seems to be here{" "}
-                    <i className="ri-emotion-sad-line"></i>
-                  </h2>
-                  <p className="text-center mt-5">
-                    Create a curated collection of your most cherished finds and
-                    let them dance in the realm of your favorites.
-                  </p>
                   <Link to="/recipes" className="buy__button button_cs">
                     <div style={{textAlign:"center", textDecoration:"underline",fontSize:"20px",marginTop:"20px"}}>Continue Shopping</div>
                   </Link>
@@ -97,7 +89,7 @@ const FavItem = ({ item, deleteFavItem }) => {
         <div className="fav-item-image">
           <Link to={`/recipes/${item.id}`}>
             <img src={item.imgUrl} alt="" />
-          </Link>
+          </Link>     
         </div>
         <div className="fav-item-title">
           <Link to={`/recipes/${item.id}`}>{item.title}</Link>

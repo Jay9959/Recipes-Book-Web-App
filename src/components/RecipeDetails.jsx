@@ -147,15 +147,13 @@ const ProductDetails = () => {
               </div>
               {videoId && (
                 <div className="youtube-video">
-                  <h4>➣ Watch the Recipe Video:</h4>
+                  <h4>➣ Watch the Video:</h4>
                   <iframe
                     width="100%"
                     height="500px"
                     src={`https://www.youtube.com/embed/${videoId}`}
-                    frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    title="Recipe Video"
                   ></iframe>
                 </div>
               )}

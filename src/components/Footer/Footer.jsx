@@ -8,7 +8,6 @@ const Footer = () => {
     window.scrollTo(0, 0)
   })
 
-
   const year = new Date().getFullYear()
   return (<footer className="footer">
     <Container>
@@ -22,9 +21,8 @@ const Footer = () => {
           </p>
         </Col>
         <Col lg='12'>
-          <p className="footer__copyright">Rawcipes<i className="ri-copyright-line"></i>  {year}. All rights reserved. </p>
+          <p className="footer__copyright">Rawcipes<i className="ri-copyright-line"></i>{year}. All rights reserved. </p>
           <p className="footer__text mt-4">Rawcipes: Your virtual culinary companion. Explore diverse recipes, from classic comfort foods to exotic delights. Elevate your cooking experience with step-by-step instructions and tantalizing flavors, all at your fingertips.</p>
-
         </Col>
       </Row>
     </Container>

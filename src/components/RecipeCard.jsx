@@ -51,19 +51,7 @@ const RecipeCard = ({ item = {} }) => {
   return (
     <Col lg="3" md="1" className="mb-2 grey product-card-hover">
       <div className="product__item">
-        <Link to={`/recipes/${item.id}`}>
-          <div className="recipe__img">
-            <img
-              src={item.imgUrl}
-              alt=""
-              style={{ height: 200, objectFit: 'contain' }}
-            />
-             <div className="recipe-card-rating rating">
-            <div>{renderStars(averageRating)}</div>
-            <div className="recipe-card-number average-number">({averageRating.toFixed(1)})</div> 
-          </div>
-          </div>
-        </Link>
+
         <div className="p-2 product__info">
           <Link to={`/recipes/${item.id}`}>
             <h3 className="product__name">{item.title}</h3>
@@ -75,8 +63,12 @@ const RecipeCard = ({ item = {} }) => {
               ))}
           </div>
         </div>
+
         <div className="flexend">
           <div className="last">
+            <div onClick={addToFavorites} className="h_a">
+              <i className="helo ri-heart-add-line"></i>
+            </div>
             <div className="veg">
               {item.vegetarian ? (
                 <div className="vegetarian">
@@ -88,11 +80,23 @@ const RecipeCard = ({ item = {} }) => {
                 </div>
               )}
             </div>
-            <div onClick={addToFavorites} className="h_a">
-              <i className="helo ri-heart-add-line"></i>
-            </div>
           </div>
         </div>
+
+        <Link to={`/recipes/${item.id}`}>
+          <div className="recipe__img">
+            <img
+              src={item.imgUrl}
+              alt=""
+              style={{ height: 200, objectFit: 'contain' }}
+            />
+            <div className="recipe-card-rating rating">
+              <div>{renderStars(averageRating)}</div>
+              <div className="recipe-card-number average-number">({averageRating.toFixed(1)})</div>
+            </div>
+          </div>
+        </Link>
+
       </div>
     </Col>
   );

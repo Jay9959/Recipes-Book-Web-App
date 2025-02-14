@@ -11,9 +11,9 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(9);
-  const [isLoading, setIsLoading] = useState(false); 
-  const [selectedCategory, setSelectedCategory] = useState(""); 
-  const [selectedType, setSelectedType] = useState(""); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Shop = () => {
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
@@ -98,6 +98,7 @@ const Shop = () => {
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  console.log(paginate);
 
   return (
     <>
@@ -107,26 +108,13 @@ const Shop = () => {
         <Container>
           <Row className="justify-content-center">
             <div className="filters__container">
-              {/* Search Box */}
-              <div className="search__box">
-                <input
-                  type="text"
-                  placeholder="Search Product ..."
-                  onChange={handleSearch}
-                  value={searchTerm}
-                />
-                <span>
-                  <i className="ri-search-line"></i>
-                </span>
-              </div>
 
-              {/* Category Filter */}
               <div className="category__filter">
                 <select
                   value={selectedCategory}
                   onChange={(e) => handleCategoryChange(e.target.value)}
                 >
-                  <option value="">All Categories</option>
+                  <option value="">All Recipes</option>
                   {categories.map((category, index) => (
                     <option key={index} value={category}>
                       {category}
@@ -135,27 +123,39 @@ const Shop = () => {
                 </select>
               </div>
 
-              {/* Type Filter */}
+              <div className="search__box">
+                <input
+                  type="text"
+                  placeholder="Search Recipes Name ...."
+                  onChange={handleSearch}
+                  value={searchTerm}
+                />
+                <span>
+                  <i className="ri-search-line"></i>
+                </span>
+              </div>
+
               <div className="type__filter">
                 <button
                   className={`filter__btn veg-btn ${selectedType === "veg" ? "active" : ""}`}
                   onClick={() => handleTypeChange("veg")}
                 >
-                  Veg
+                  Vegetarian Recipes
                 </button>
                 <button
                   className={`filter__btn non-veg-btn ${selectedType === "nonveg" ? "active" : ""}`}
                   onClick={() => handleTypeChange("nonveg")}
                 >
-                  Non-Veg
+                  Non-vegetarian Recipes
                 </button>
                 <button
                   className={`filter__btn ${selectedType === "" ? "active" : ""}`}
                   onClick={() => handleTypeChange("")}
                 >
-                  All
+                  All Recipes
                 </button>
               </div>
+
             </div>
           </Row>
         </Container>
@@ -164,7 +164,7 @@ const Shop = () => {
           <Row className="dffdd">
             {isLoading ? (
               <div className="fullload">
-                <div className="loader"></div> 
+                <div className="loader"></div>
               </div>
             ) : currentProducts.length === 0 ? (
               <div className="text-center">
@@ -173,41 +173,12 @@ const Shop = () => {
             ) : (
               <>
                 <ProductsList data={currentProducts} />
-                <Pagination
-                  productsPerPage={productsPerPage}
-                  totalProducts={filteredProducts.length}
-                  currentPage={currentPage}
-                  paginate={paginate}
-                />
               </>
             )}
           </Row>
         </Container>
       </section>
     </>
-  );
-};
-
-const Pagination = ({ productsPerPage, totalProducts, currentPage, paginate }) => {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  return (
-    <ul className="pagination">
-      {pageNumbers.map((number) => (
-        <li
-          key={number}
-          className={`page-item ${currentPage === number ? "active" : ""}`}
-        >
-          <button className="page-link" onClick={() => paginate(number)}>
-            {number}
-          </button>
-        </li>
-      ))}
-    </ul>
   );
 };
 

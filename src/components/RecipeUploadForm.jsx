@@ -138,7 +138,7 @@ const RecipeUploadForm = () => {
     setIngredients("");
     setImageUrl("");
     setVegetarian(false);
-    setYoutubeLink("https://www.youtube.com/embed/(enter id)");
+    setYoutubeLink("");
     setCurrentRecipeId("");
   };
 
@@ -146,102 +146,6 @@ const RecipeUploadForm = () => {
     <Container>
       <ToastContainer />
       <Row>
-        <Col md={6} style={{ paddingLeft: "30px" }}>
-          <h2 className="mt-5 mb-4">{isEditing ? "Edit Recipe" : "Upload Recipe"}<span style={{ color: "red", fontSize: "12px" }}>(Login Required*)</span></h2>
-          <Form onSubmit={handleSubmit}>
-            <FormGroup>
-              <Label for="title">Title</Label>
-              <Input
-                type="text"
-                name="title"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="categories">Categories (Separated by Commas)</Label>
-              <Input
-                type="text"
-                name="categories"
-                id="categories"
-                value={categories.join(", ")}
-                onChange={handleCategoryChange}
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="instructions">Instructions</Label>
-              <Input
-                type="textarea"
-                name="instructions"
-                id="instructions"
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="ingredients">Ingredients (Separated by Commas)</Label>
-              <Input
-                type="text"
-                name="ingredients"
-                id="ingredients"
-                value={ingredients}
-                onChange={(e) => setIngredients(e.target.value)}
-                required
-              />
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  onChange={() => setVegetarian(!vegetarian)}
-                  checked={vegetarian}
-                />{" "}
-                Vegetarian <span style={{ color: "red", fontWeight: "400" }}>(Please check if it Vegetarian)</span>
-              </Label>
-            </FormGroup>
-            <FormGroup>
-              <Label for="imageUrl">Image Upload</Label>
-              <Input
-                type="file"
-                name="imageUrl"
-                id="imageUrl"
-                onChange={(e) => handleImageUpload(e.target.files[0])}
-                required={!imageUrl}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="youtubeLink">YouTube Video Link</Label>
-              <Input
-                type="text"
-                name="youtubeLink"
-                id="youtubeLink"
-                value={youtubeLink}
-                onChange={(e) => setYoutubeLink(e.target.value)}
-              />
-            </FormGroup>
-            <Button type="submit" color="primary" disabled={uploading} className="upload-edit-btn">
-              {uploading ? "Uploading..." : isEditing ? "Update Recipe" : "Upload Recipe"}
-            </Button>
-            {isEditing && (
-              <Button
-                type="button"
-                color="secondary"
-                onClick={() => {
-                  resetForm();
-                  setIsEditing(false);
-                }}
-                className="ml-2"
-              >
-                Cancel
-              </Button>
-            )}
-          </Form>
-        </Col>
-        {/* Recipe List */}
         <Col md={6}>
           <h2 className="mt-5 mb-4">All Recipes</h2>
           <Row className="recipe-list">
@@ -277,9 +181,113 @@ const RecipeUploadForm = () => {
             ))}
           </Row>
         </Col>
+
+        <Col md={6} style={{ paddingLeft: "30px" }}>
+          <h2 className="mt-5 mb-4">{isEditing ? "Edit Recipe" : "Add Recipe"}</h2>
+          <Form onSubmit={handleSubmit}>
+
+            <FormGroup>
+              <Label for="imageUrl">Image Upload</Label>
+              <Input
+                type="file"
+                name="imageUrl"
+                id="imageUrl"
+                onChange={(e) => handleImageUpload(e.target.files[0])}
+                required={!imageUrl}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="youtubeLink">YouTube Link</Label>
+              <Input
+                type="text"
+                name="youtubeLink"
+                id="youtubeLink"
+                value={youtubeLink}
+                onChange={(e) => setYoutubeLink(e.target.value)}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="title">Title</Label>
+              <Input
+                type="text"
+                name="title"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="categories">Categories</Label>
+              <Input
+                type="text"
+                name="categories"
+                id="categories"
+                value={categories.join(", ")}
+                onChange={handleCategoryChange}
+                required
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="instructions">Instructions</Label>
+              <Input
+                type="textarea"
+                name="instructions"
+                id="instructions"
+                value={instructions}
+                onChange={(e) => setInstructions(e.target.value)}
+                required
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="ingredients">Ingredients</Label>
+              <Input
+                type="text"
+                name="ingredients"
+                id="ingredients"
+                value={ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+                required
+              />
+            </FormGroup>
+
+            <FormGroup check className="mb-4">
+              <Label check>
+                <Input
+                  type="checkbox"
+                  onChange={() => setVegetarian(!vegetarian)}
+                  checked={vegetarian}
+                />{" "}
+                Vegetarian
+              </Label>
+            </FormGroup>
+
+            <Button type="submit" color="primary" disabled={uploading} className="upload-edit-btn">
+              {uploading ? "Uploading..." : isEditing ? "Update Recipe" : "Upload Recipe"}
+            </Button>
+
+            {isEditing && (
+              <Button
+                type="button"
+                color="secondary"
+                onClick={() => {
+                  resetForm();
+                  setIsEditing(false);
+                }}
+                className="ml-2"
+              >
+                Cancel
+              </Button>
+            )}
+          </Form>
+        </Col>
       </Row>
 
-      {/* Delete Confirmation Modal */}
       {itemToDelete && (
         <Modal isOpen={isDeleteModalOpen} toggle={() => setDeleteModalOpen(false)}>
           <ModalHeader toggle={() => setDeleteModalOpen(false)}>Confirm Removal</ModalHeader>

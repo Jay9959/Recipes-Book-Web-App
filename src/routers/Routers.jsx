@@ -7,7 +7,6 @@ import Shop from '../components/Recipes';
 import ProductDetails from '../components/RecipeDetails';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
-import ProtectedRoute from './ProtectedRoute';
 import Fav from '../components/Fav';
 import RecipeUploadForm from '../components/RecipeUploadForm';
 
@@ -29,9 +28,6 @@ const Routers = () => {
       <Route path="recipes" element={<Shop />} />
       <Route path="recipes/:id" element={<ProductDetails />} />
       <Route path="upload" element={<RecipeUploadForm />} />
-      
-      <Route path="/*" element={<ProtectedRoute />} />
-
       <Route path="fav" element={<Fav />} />
       <Route path="login" element={user ? <Navigate to="/home" /> : <Login />} />
       <Route path="signup" element={user ? <Navigate to="/home" /> : <Signup />} />

@@ -5,8 +5,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase.config";
 import { toast } from 'react-toastify';
 import googleimg from '../assets/images/google.png';
-import imag from "../assets/images/login.png"; 
-import { Spinner } from 'reactstrap'; 
+import { Spinner } from 'reactstrap';
 
 const Login = () => {
   useEffect(() => {
@@ -70,52 +69,52 @@ const Login = () => {
               </Col>
             ) : (
               <Row>
-                <Col className="dffdddf" lg='6'>
-                  <img className="loginimg" src={imag} alt="" />
-                </Col>
                 <Col lg='6' className="m-auto text-center login-form">
                   <h3 className="fw-bold fs-2 mb-4">Welcome Back!</h3>
                   <h6 className="mb-4">Login to continue</h6>
 
                   <Form className="auth__form" onSubmit={signInWithEmail}>
-                    <button 
-                      type="button" 
-                      className="buy__button auth__btn google_btn" 
+                    <button
+                      type="button"
+                      className="buy__button auth__btn google_btn"
                       onClick={handleGoogleLogin}
-                      disabled={loading} 
+                      disabled={loading}
                     >
                       <img src={googleimg} alt="" /> Login with Google
                     </button>
                     <p className="OR">OR</p>
 
                     <FormGroup className="form__group">
-                      <input 
-                        type="email" 
-                        placeholder="E-mail" 
-                        value={email} 
-                        onChange={e => setEmail(e.target.value)} 
-                        disabled={loading} 
+                      <input
+                        type="email"
+                        placeholder="E-mail"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        disabled={loading}
                       />
                     </FormGroup>
                     <FormGroup className="form__group">
-                      <input 
-                        type="password" 
-                        placeholder="Password" 
-                        value={password} 
-                        onChange={e => setPassword(e.target.value)} 
-                        disabled={loading} 
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        disabled={loading}
                       />
                     </FormGroup>
 
-                    <button 
-                      type="submit" 
+                    <button
+                      type="submit"
                       className="buy__button auth__btn"
-                      disabled={loading} 
+                      disabled={loading}
                     >
                       {loading ? <Spinner size="sm" color="light" /> : "Let's go"}
                     </button>
                     <p>Dont have an account? <Link to='/signup'>Sign Up</Link></p>
                   </Form>
+                </Col>
+                <Col className="dffdddf" lg='6'>
+                  <img className="loginimg" src="/src/assets/images/login.png" alt="" />
                 </Col>
               </Row>
             )}

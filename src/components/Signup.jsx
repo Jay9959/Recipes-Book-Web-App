@@ -6,9 +6,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { auth, provider, db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import googleimg from '../assets/images/google.png';
-import imag from "../assets/images/login.png";
 import { Spinner } from 'reactstrap';
-import axios from "axios";
 
 const Signup = () => {
   useEffect(() => {
@@ -19,27 +17,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [profileImage, setProfileImage] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const handleImageChange = (e) => {
-    setProfileImage(e.target.files[0]);
-  };
-
-  const uploadImageToCloudinary = async (image) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("upload_preset", "profile");
-
-      const response = await axios.post('https://api.cloudinary.com/v1_1/dcud5ct93/Recipes', formData);
-      return response.data.secure_url;
-    } catch (error) {
-      console.error("Image upload error:", error);
-      toast.error("Failed to upload image. Try again.");
-      return null;
-    }
-  };
 
   const signup = async (e) => {
     e.preventDefault();
@@ -55,25 +33,14 @@ const Signup = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      let profileImageUrl = null;
-      if (profileImage) {
-        profileImageUrl = await uploadImageToCloudinary(profileImage);
-        if (!profileImageUrl) {
-          setLoading(false);
-          return;
-        }
-      }
-
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         displayName: username,
         email,
-        photoURL: profileImageUrl,
       });
 
       await updateProfile(user, {
         displayName: username,
-        photoURL: profileImageUrl,
       });
 
       setLoading(false);
@@ -95,10 +62,6 @@ const Signup = () => {
             </Col>
           ) : (
             <Row>
-              <Col className="dffdddf" lg='6'>
-                <img className="loginimg" src={imag} alt="" />
-              </Col>
-
               <Col lg='6' className="m-auto text-center signup-form">
                 <h3 className="fw-bold fs-2 mb-4">Welcome!</h3>
                 <h6 className="mb-4">Sign Up to continue</h6>
@@ -126,6 +89,7 @@ const Signup = () => {
                       disabled={loading}
                     />
                   </FormGroup>
+
                   <FormGroup className="form__group">
                     <input
                       type="email"
@@ -136,6 +100,7 @@ const Signup = () => {
                       disabled={loading}
                     />
                   </FormGroup>
+
                   <FormGroup className="form__group">
                     <input
                       type="password"
@@ -146,6 +111,7 @@ const Signup = () => {
                       disabled={loading}
                     />
                   </FormGroup>
+
                   <FormGroup className="form__group">
                     <input
                       type="password"
@@ -153,15 +119,6 @@ const Signup = () => {
                       required
                       value={confirmPassword}
                       onChange={e => setConfirmPassword(e.target.value)}
-                      disabled={loading}
-                    />
-                  </FormGroup>
-                  <FormGroup className="form__group">
-                    <label>Upload Profile Image</label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
                       disabled={loading}
                     />
                   </FormGroup>
@@ -175,6 +132,9 @@ const Signup = () => {
                   </button>
                   <p>Already have an account? <Link to='/login'>Login</Link></p>
                 </Form>
+              </Col>
+              <Col className="dffdddf" lg='6'>
+                <img className="loginimg" src="/src/assets/images/login.png" alt="" />
               </Col>
             </Row>
           )}
