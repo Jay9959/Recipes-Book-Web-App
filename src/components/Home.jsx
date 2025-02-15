@@ -69,7 +69,7 @@ const Home = () => {
         <Container>
           <Row className="ddffd">
             <Col lg="12" className="text-center">
-              <h2 className="section__title">Try these !!</h2>
+              <h2 className="section__title">Show to 6 Recipes</h2>
             </Col>
             {loading ? (
               <h5 className="fw-bold">Loading...</h5>
